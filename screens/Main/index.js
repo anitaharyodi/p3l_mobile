@@ -7,11 +7,13 @@ import Profile from "../Profile";
 import { Image, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import img from "../../assets/img";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLogin } from "../../Context/HotelContext";
 
 
 const Tab = createBottomTabNavigator();
 
 function Main() {
+  const {isLogin} = useLogin()
 
   return (
     <Tab.Navigator
@@ -60,13 +62,15 @@ function Main() {
           tabBarLabelStyle: { display: "flex", fontWeight: "bold" },
         })}
       />
-      <Tab.Screen
-        name="History"
-        component={MyBooking}
-        options={() => ({
-          tabBarLabelStyle: { display: "flex", fontWeight: "bold" },
-        })}
-      />
+      {isLogin ? (
+        <Tab.Screen
+          name="History"
+          component={MyBooking}
+          options={() => ({
+            tabBarLabelStyle: { display: "flex", fontWeight: "bold" },
+          })}
+        />
+      ): null}
       <Tab.Screen
         name="Profile"
         component={Profile}
