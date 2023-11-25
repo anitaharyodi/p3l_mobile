@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useLogin } from '../../Context/HotelContext';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -143,8 +143,8 @@ const Profile = () => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Identity Number</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 16}}>{noIdentitas}</Text>
+              <Text style={{fontSize: 16, color: "#000"}}>Identity Number</Text>
+              <Text style={{fontWeight: 'bold', fontSize: 16, color: "#000"}}>{noIdentitas}</Text>
             </View>
             <View
               style={{
@@ -163,8 +163,8 @@ const Profile = () => {
                 justifyContent: 'space-between',
                 marginTop: 16,
               }}>
-              <Text style={{fontSize: 16}}>Phone Number</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>{noTelepon}</Text>
+              <Text style={{fontSize: 16, color: "#000"}}>Phone Number</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>{noTelepon}</Text>
             </View>
             <View
               style={{
@@ -183,8 +183,8 @@ const Profile = () => {
                 justifyContent: 'space-between',
                 marginTop: 16,
               }}>
-              <Text style={{fontSize: 16}}>Address</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold', width: 200, textAlign: 'right'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Address</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', width: 200, textAlign: 'right', color: "#000"}}>
                 {alamat}
               </Text>
             </View>

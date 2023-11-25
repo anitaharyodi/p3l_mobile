@@ -17,9 +17,17 @@ export default StyleSheet.create({
         fontWeight: "500"
         // borderWidth: 1
       },
+      cancel: {
+        color: '#FF3B3B',
+        fontSize: 16,
+        letterSpacing: 0.4,
+        lineHeight: 17,
+        fontWeight: "500"
+        // borderWidth: 1
+      },
       backgroundEdit: {
         width: '100%',
-        height: 200,
+        height: 250,
         position: 'relative',
         backgroundColor: 'rgba(0, 0, 0, 0.6)'
       },

@@ -50,13 +50,13 @@ const RoomDetail = ({navigation, route}) => {
             ensuring unmatched comfort for a restful sleep. After a long day,
             you can indulge in the luxury of the lavish bed.
           </Text>
-          <Text style={{marginTop:16, fontSize:20, fontWeight:"bold" }}>Room Facilities</Text>
+          <Text style={{marginTop:16, fontSize:20, fontWeight:"bold", color: "#000", }}>Room Facilities</Text>
           {deskripsi_kamar_array?.map((roomDesc, index) => (
           <View key={index}>
             <Text style={styles.description}>• {roomDesc}</Text>
           </View>
           ))}
-          <Text style={{marginTop:16, fontSize:20, fontWeight:"bold" }}>Room Details</Text>
+          <Text style={{marginTop:16, fontSize:20, fontWeight:"bold", color: "#000", }}>Room Details</Text>
           {rincian_kamar_array?.map((roomDetail, index) => (
             <View key={index}>
             <Text style={styles.description}>• {roomDetail}</Text>

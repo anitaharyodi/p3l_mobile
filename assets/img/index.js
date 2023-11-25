@@ -18,5 +18,8 @@ export default {
     BGPROFILE: require('./bgBlue.jpg'),
     EDITICON: require('./edit.png'),
     NOTFOUND: require('./notFound.jpg'),
+    INFOICON: require('./infoIcon.png'),
+    REPORT1: require('./report1.png'),
+    REPORT2: require('./report2.png'),
 
 }

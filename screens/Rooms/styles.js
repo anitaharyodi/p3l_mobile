@@ -33,15 +33,18 @@ export default StyleSheet.create({
   size: {
     fontSize: 16,
     marginTop: 16,
+    color: "#000",
   },
   capacity: {
     fontSize: 16,
     marginTop: 8,
+    color: "#000",
   },
   description: {
     fontSize: 16,
     marginTop: 10,
-    textAlign:"justify"
+    textAlign:"justify",
+    color: "#000",
   },
   bookNowButton: {
     backgroundColor: '#1E2131',

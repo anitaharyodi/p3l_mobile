@@ -13,7 +13,7 @@ import img from '../../assets/img';
 import {HEIGHT, WIDTH} from '../../assets/style';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
 const ForgotPasswordStaff = () => {
   const navigation = useNavigation();

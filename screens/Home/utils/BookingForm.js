@@ -1,59 +1,117 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
+import CustomDropdown from './CustomDropdown';
+import { useNavigation } from '@react-navigation/native';
+import { useLogin } from '../../../Context/HotelContext';
+
 
 const BookingForm = () => {
-  const [checkInDate, setCheckInDate] = useState('');
-  const [checkOutDate, setCheckOutDate] = useState('');
-  const [adults, setAdults] = useState('');
-  const [children, setChildren] = useState('');
+  const navigation = useNavigation();
+  const {tglCheckin, setTglCheckin, tglCheckOut, setTglCheckOut, adults, setAdults, kids, setKids} = useLogin()
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDatePickerOut, setShowDatePickerOut] = useState(false);
 
   const handleBookNow = () => {
-    // Handle the "Book Now" button press, e.g., navigate to the booking screen.
     console.log('Booking details:', {
-      checkInDate,
-      checkOutDate,
+      tglCheckin,
+      tglCheckOut,
       adults,
-      children,
+      kids,
     });
+    navigation.navigate("SearchBookRoom")
+  };
+
+  const listAdults = [
+    {label: '1', value:'1'},
+    {label: '2', value:'2'},
+    {label: '3', value:'3'},
+    {label: '4', value:'4'},
+  ]
+  const listKids = [
+    {label: '0', value:'0'},
+    {label: '1', value:'1'},
+    {label: '2', value:'2'},
+    {label: '3', value:'3'},
+    {label: '4', value:'4'},
+  ]
+
+  const handleAdultsSelect = (value) => {
+    setAdults(value);
+  };
+
+  const handleChildSelect = (value) => {
+    setKids(value);
+  };
+
+  const handleDateChange = (event, selectedDate) => {
+    if (selectedDate !== undefined) {
+      setTglCheckin(selectedDate);
+
+      const nextDay = new Date(selectedDate);
+      nextDay.setDate(selectedDate.getDate() + 1);
+      setTglCheckOut(nextDay);
+    }
+
+    setShowDatePicker(Platform.OS === 'ios');
+  };
+
+  const handleDateCheckOut = (event, selectedDate) => {
+    if (selectedDate !== undefined) {
+      setTglCheckOut(selectedDate);
+    }
+    setShowDatePickerOut(Platform.OS === 'ios');
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const showDatepickerOut = () => {
+    setShowDatePickerOut(true);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.formGroup}>
-        <Text>Check-In Date:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Select Date"
-          value={checkInDate}
-          onChangeText={(text) => setCheckInDate(text)}
+        <Text style={{color:'#000'}}>Check-In Date:</Text>
+        <TouchableOpacity onPress={showDatepicker}>
+        <Text style={styles.input}>{moment(tglCheckin).format('DD MMMM YYYY')}</Text>
+      </TouchableOpacity>
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={tglCheckin}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
         />
+      )}
       </View>
       <View style={styles.formGroup}>
-        <Text>Check-Out Date:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Select Date"
-          value={checkOutDate}
-          onChangeText={(text) => setCheckOutDate(text)}
+        <Text style={{color:'#000'}}>Check-Out Date:</Text>
+        <TouchableOpacity onPress={showDatepickerOut}>
+        <Text style={styles.input}>{moment(tglCheckOut).format('DD MMMM YYYY')}</Text>
+      </TouchableOpacity>
+
+      {showDatePickerOut && (
+        <DateTimePicker
+          value={tglCheckOut}
+          mode="date"
+          display="default"
+          onChange={handleDateCheckOut}
         />
+      )}
       </View>
       <View style={styles.formGroup}>
-        <Text>Adults:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Number of Adults"
-          value={adults}
-          onChangeText={(text) => setAdults(text)}
-        />
+        <Text style={{color:'#000'}}>Adults:</Text>
+        <CustomDropdown items={listAdults} selectedValue={adults} onSelect={handleAdultsSelect} />
+
       </View>
       <View style={styles.formGroup}>
-        <Text>Children:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Number of Children"
-          value={children}
-          onChangeText={(text) => setChildren(text)}
-        />
+        <Text style={{color:'#000'}}>Children:</Text>
+        <CustomDropdown items={listKids} selectedValue={kids} onSelect={handleChildSelect} />
       </View>
       <TouchableOpacity style={styles.bookNowButton} onPress={handleBookNow}>
         <Text style={styles.bookNowText}>Book Now</Text>
@@ -68,7 +126,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginHorizontal:16,
     borderRadius: 10,
-    marginTop: -120
   },
   formGroup: {
     marginBottom: 14,
@@ -78,6 +135,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderRadius: 4,
     padding: 8,
+    color:"#000"
   },
   bookNowButton: {
     backgroundColor: '#000',

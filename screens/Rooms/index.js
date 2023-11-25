@@ -12,7 +12,7 @@ import CardRoom from '../Home/utils/CardRoom';
 import axios from 'axios';
 import styles from './styles';
 import img from '../../assets/img';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
 const Rooms = () => {
   const [jenisKamarData, setJenisKamarData] = useState([]);
@@ -49,7 +49,9 @@ const Rooms = () => {
               backgroundColor: '#F2F4F9',
               borderRadius: 10,
               marginTop: 16,
+              color: "#000"
             }}
+            placeholderTextColor={'lightgray'}
             onChangeText={text => setSearchInput(text)}
           />
           <View style={{marginTop: 24, marginLeft: 10}}>

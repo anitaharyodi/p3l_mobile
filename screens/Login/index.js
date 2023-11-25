@@ -16,7 +16,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { useLogin } from '../../Context/HotelContext';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
 const Login = () => {
   const navigation = useNavigation();
@@ -50,12 +50,12 @@ const Login = () => {
         setErrorMail('Email not Valid');
         setIsEnable(true);
       }
-      if (password.length > 0 && password.length < 8) {
-        setErrorPassword('Password must less than 8 characters');
-        setIsEnable(true);
-      } else {
+      // if (password.length > 0 && password.length < 8) {
+      //   setErrorPassword('Password must less than 8 characters');
+      //   setIsEnable(true);
+      // } else {
         setErrorPassword('');
-      }
+      // }
       setIsEnable(false);
     } else {
       if (password) {

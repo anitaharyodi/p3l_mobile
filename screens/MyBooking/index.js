@@ -15,9 +15,9 @@ import axios from 'axios';
 import {useLogin} from '../../Context/HotelContext';
 import img from '../../assets/img';
 import styles from './styles';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
-const MyBooking = () => {
+const MyBooking = ({ route }) => {
   const navigation = useNavigation();
   const {token, isLogin} = useLogin();
   const [profileData, setProfileData] = useState();
@@ -25,27 +25,29 @@ const MyBooking = () => {
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    const axiosConfig = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/history`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    axios
-      .get(`${baseUrl}/api/history`, axiosConfig)
-      .then(response => {
-        const {nama, email, no_telepon} = response.data.mess.customers;
+        const { nama, email, no_telepon } = response.data.mess.customers;
         setProfileData({
           name: nama,
           email: email,
           noTelepon: no_telepon,
-        });
-        setBookingData(response.data.mess.customers.reservations);
-      })
-      .catch(error => {
-        // console.error("Error fetching profile data: ", error.response);
-      });
-  }, [token]);
+        }); 
+
+        setBookingData(response.data.mess.customers.reservations.reverse());
+      } catch (error) {
+        console.error('Error fetching history data: ', error.response);
+      }
+    };
+
+    fetchData();
+  }, [route.params?.key || token]);
 
   const filteredHistory = bookingData.filter(
     item =>
@@ -68,8 +70,10 @@ const MyBooking = () => {
               backgroundColor: '#F2F4F9',
               borderRadius: 10,
               marginTop: 16,
+              color:'#000'
             }}
             onChangeText={text => setSearchInput(text)}
+            placeholderTextColor={'lightgray'}
           />
           {isLogin ? (
             <View style={{marginTop: 30}}>

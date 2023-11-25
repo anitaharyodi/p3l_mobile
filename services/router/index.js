@@ -15,6 +15,9 @@ import ForgotPassword from '../../screens/ForgotPassword';
 import LoginStaff from '../../screens/LoginStaff';
 import ForgotPasswordStaff from '../../screens/ForgotPasswordStaff';
 import ReportStaff from '../../screens/ReportStaff';
+import SearchBookRoom from '../../screens/SearchBookRoom';
+import MainStaff from '../../screens/MainStaff';
+import Report2Staff from '../../screens/Report2Staff';
 
 const Stack = createStackNavigator();
 
@@ -67,11 +70,12 @@ const Routes = () => {
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="DetailHistory" component={DetailHistory} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="SearchBookRoom" component={SearchBookRoom} />
 
       {/* Staff */}
+      <Stack.Screen name="MainStaff" component={MainStaff} />
       <Stack.Screen name="LoginStaff" component={LoginStaff} />
       <Stack.Screen name="ForgotPasswordStaff" component={ForgotPasswordStaff} />
-      <Stack.Screen name="ReportStaff" component={ReportStaff} />
     </Stack.Navigator>
   );
 

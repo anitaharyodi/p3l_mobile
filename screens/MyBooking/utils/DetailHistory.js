@@ -5,11 +5,11 @@ import img from '../../../assets/img';
 import {HEIGHT, WIDTH} from '../../../assets/style';
 import {useLogin} from '../../../Context/HotelContext';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-const baseUrl = 'http://10.0.2.2:8000';
+import {useNavigation} from '@react-navigation/native';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
-const DetailHistory = ({ route}) => {
-    const navigation = useNavigation()
+const DetailHistory = ({route}) => {
+  const navigation = useNavigation();
   const detailId = route.params.id;
   const {token} = useLogin();
   console.log(detailId);
@@ -71,6 +71,46 @@ const DetailHistory = ({ route}) => {
   const formatCurrency = number => {
     return `Rp ${new Intl.NumberFormat('id-ID').format(number)}`;
   };
+  
+  // const getPDF = () => {
+  //   const axiosConfig = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     responseType: 'blob',
+  //   };
+    
+  //   axios
+  //     .get(`${baseUrl}/api/generate-pdf/${detailId}`, axiosConfig)
+  //     .then((response) => {
+  //       const blob = new Blob([response.data], { type: 'application/pdf' });
+  //       const url = window.URL.createObjectURL(blob);
+  
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = `reservation.pdf`;
+  //       a.style.display = 'none';
+  //       document.body.appendChild(a);
+  //       a.click();
+  
+  //       window.URL.revokeObjectURL(url);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error downloading PDF:', error);
+
+  //       if (error.response) {
+  //         console.error('Response data:', error.response.data);
+  //         console.error('Response status:', error.response.status);
+  //         console.error('Response headers:', error.response.headers);
+  //       } else if (error.request) {
+  //         console.error('No response received:', error.request);
+  //       } else {
+  //         console.error('Error setting up the request:', error.message);
+  //       }
+  //     });
+  // };
+  
+
 
   return (
     <View
@@ -83,12 +123,11 @@ const DetailHistory = ({ route}) => {
       <ScrollView>
         <View style={styles.backgroundEdit}>
           <Image source={img.BGPROFILE} style={styles.backgroundImage} />
-          <View style={{padding:24}}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}>
-          <Image source={img.BACK} style={styles.backButtonText} />
-        </TouchableOpacity>
-      </View>
+          <View style={{padding: 24}}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Image source={img.BACK} style={styles.backButtonText} />
+            </TouchableOpacity>
+          </View>
           <Text style={styles.title}>Detail History</Text>
           <Text
             style={{
@@ -104,26 +143,26 @@ const DetailHistory = ({ route}) => {
             <View
               style={{
                 borderColor:
-                  reservation?.status === 'Lunas'
+                  reservation?.status === 'Paid'
                     ? '#4A9468'
-                    : reservation?.status === 'Menunggu Pembayaran'
+                    : reservation?.status === 'Waiting for payment'
                     ? '#C4850F'
-                    : reservation?.status === 'Check-In'
+                    : reservation?.status === 'Confirmed' || reservation?.status === 'Check-In'
                     ? '#045AAC'
                     : '#AC2020',
                 backgroundColor:
-                  reservation?.status === 'Lunas'
+                  reservation?.status === 'Paid'
                     ? '#DAEEE2'
-                    : reservation?.status === 'Menunggu Pembayaran'
+                    : reservation?.status === 'Waiting for payment'
                     ? '#FBE9BE'
-                    : reservation?.status === 'Check-In'
+                    : reservation?.status === 'Confirmed' || reservation?.status === 'Check-In'
                     ? '#E6EEF7'
                     : '#FAD8D2',
                 borderWidth: 1,
                 borderRadius: 6,
                 paddingHorizontal: 8,
                 height: 30,
-                marginTop: -25,
+                marginTop: -40,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -131,11 +170,11 @@ const DetailHistory = ({ route}) => {
                 style={{
                   fontSize: 16,
                   color:
-                    reservation?.status === 'Lunas'
+                    reservation?.status === 'Paid'
                       ? '#4A9468'
-                      : reservation?.status === 'Menunggu Pembayaran'
+                      : reservation?.status === 'Waiting for payment'
                       ? '#C4850F'
-                      : reservation?.status === 'Check-In'
+                      : reservation?.status === 'Confirmed' || reservation?.status === 'Check-In'
                       ? '#045AAC'
                       : '#AC2020',
                   textAlign: 'center',
@@ -143,9 +182,12 @@ const DetailHistory = ({ route}) => {
                 {reservation?.status}
               </Text>
             </View>
+          {/* <TouchableOpacity style={{marginTop:20, backgroundColor:"#526166", paddingVertical:8, paddingHorizontal:10, borderRadius:10}}>
+           <Text style={{color:"#fff", fontSize: 14, fontWeight:"bold"}}>Download Reservation Receipt</Text> 
+          </TouchableOpacity> */}
           </View>
         </View>
-        <View style={{paddingVertical: 24}}>
+        <View style={{paddingVertical: 15}}>
           <View
             style={{
               backgroundColor: '#fff',
@@ -162,8 +204,8 @@ const DetailHistory = ({ route}) => {
                 justifyContent: 'space-between',
                 marginTop: 16,
               }}>
-              <Text style={{fontSize: 16}}>Name</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000",}}>Name</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {customer?.nama}
               </Text>
             </View>
@@ -183,8 +225,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Email</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Email</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {customer?.email}
               </Text>
             </View>
@@ -204,8 +246,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Phone Number</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Phone Number</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000",}}>
                 {customer?.noTelp}
               </Text>
             </View>
@@ -225,8 +267,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Check-In</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Check-In</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {formatDate(reservation?.checkin)}
               </Text>
             </View>
@@ -246,8 +288,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Check-Out</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Check-Out</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {formatDate(reservation?.checkout)}
               </Text>
             </View>
@@ -267,8 +309,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Adults</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Adults</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {reservation?.jmlDewasa}
               </Text>
             </View>
@@ -288,8 +330,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Kids</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16, color: "#000"}}>Kids</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold',color: "#000"}}>
                 {reservation?.jmlAnak}
               </Text>
             </View>
@@ -309,8 +351,8 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Down Payment</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+              <Text style={{fontSize: 16,color: "#000"}}>Down Payment</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                 {formatCurrency(reservation?.uangJaminan)}
               </Text>
             </View>
@@ -330,24 +372,30 @@ const DetailHistory = ({ route}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 16}}>Payment Date</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                {formatDate(reservation?.tglPembayaran)}
-              </Text>
+              <Text style={{fontSize: 16, color: "#000"}}>Payment Date</Text>
+              {reservation?.status === 'Waiting for payment' ? (
+                <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>-</Text>
+              ) : (
+                <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
+                  {formatDate(reservation?.tglPembayaran)}
+                </Text>
+              )}
             </View>
+            {bookRoom.length !== 0 && (
+              <Text
+                style={{
+                  fontSize: 24,
+                  color: '#A37D4C',
+                  marginTop: 24,
+                  marginBottom: 16,
+                  fontWeight: 'bold',
+                }}>
+                Room
+              </Text>
+            )}
             {bookRoom.length !== 0
               ? bookRoom.map((item, i) => (
                   <React.Fragment key={i}>
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        color: '#A37D4C',
-                        marginTop: 24,
-                        marginBottom: 16,
-                        fontWeight: 'bold',
-                      }}>
-                      Room
-                    </Text>
                     <View
                       style={{
                         backgroundColor: '#fff',
@@ -355,6 +403,7 @@ const DetailHistory = ({ route}) => {
                         elevation: 2,
                         borderColor: '#A37D4C',
                         borderRadius: 20,
+                        marginBottom: 16,
                       }}>
                       <View
                         style={{
@@ -362,8 +411,8 @@ const DetailHistory = ({ route}) => {
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <Text style={{fontSize: 16}}>Room Type</Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                        <Text style={{fontSize: 16, color: "#000"}}>Room Type</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 16, color: "#000"}}>
                           {item.jenis_kamars.jenis_kamar}
                         </Text>
                       </View>
@@ -384,8 +433,8 @@ const DetailHistory = ({ route}) => {
                           justifyContent: 'space-between',
                           marginTop: 16,
                         }}>
-                        <Text style={{fontSize: 16}}>Capacity</Text>
-                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 16, color: "#000"}}>Capacity</Text>
+                        <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                           {item.jenis_kamars.kapasitas}
                         </Text>
                       </View>
@@ -406,13 +455,14 @@ const DetailHistory = ({ route}) => {
                           justifyContent: 'space-between',
                           marginTop: 16,
                         }}>
-                        <Text style={{fontSize: 16}}>Tonight's Rate</Text>
+                        <Text style={{fontSize: 16, color: "#000"}}>Tonight's Rate</Text>
                         <Text
                           style={{
                             fontSize: 16,
                             fontWeight: 'bold',
                             width: 200,
                             textAlign: 'right',
+                            color: "#000",
                           }}>
                           {formatCurrency(item.jenis_kamars.tarif_normal)}
                         </Text>
@@ -421,19 +471,21 @@ const DetailHistory = ({ route}) => {
                   </React.Fragment>
                 ))
               : ''}
+            {facilityBook.length !== 0 && (
+              <Text
+                style={{
+                  fontSize: 24,
+                  color: '#A37D4C',
+                  marginTop: 24,
+                  marginBottom: 16,
+                  fontWeight: 'bold',
+                }}>
+                Paid Facilities
+              </Text>
+            )}
             {facilityBook.length !== 0
               ? facilityBook.map((item, i) => (
                   <React.Fragment key={i}>
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        color: '#A37D4C',
-                        marginTop: 24,
-                        marginBottom: 16,
-                        fontWeight: 'bold',
-                      }}>
-                      Paid Facilities
-                    </Text>
                     <View
                       style={{
                         backgroundColor: '#fff',
@@ -441,6 +493,7 @@ const DetailHistory = ({ route}) => {
                         elevation: 2,
                         borderColor: '#A37D4C',
                         borderRadius: 20,
+                        marginBottom: 16,
                       }}>
                       <View
                         style={{
@@ -448,8 +501,8 @@ const DetailHistory = ({ route}) => {
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <Text style={{fontSize: 16}}>Name</Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                        <Text style={{fontSize: 16, color: "#000"}}>Name</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 16, color: "#000"}}>
                           {item.fasilitas_tambahans.nama_fasilitas}
                         </Text>
                       </View>
@@ -470,8 +523,8 @@ const DetailHistory = ({ route}) => {
                           justifyContent: 'space-between',
                           marginTop: 16,
                         }}>
-                        <Text style={{fontSize: 16}}>Amount</Text>
-                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 16, color: "#000"}}>Amount</Text>
+                        <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                           {item.jumlah}
                         </Text>
                       </View>
@@ -492,13 +545,14 @@ const DetailHistory = ({ route}) => {
                           justifyContent: 'space-between',
                           marginTop: 16,
                         }}>
-                        <Text style={{fontSize: 16}}>Date</Text>
+                        <Text style={{fontSize: 16,color: "#000"}}>Date</Text>
                         <Text
                           style={{
                             fontSize: 16,
                             fontWeight: 'bold',
                             width: 200,
                             textAlign: 'right',
+                            color: "#000"
                           }}>
                           {formatDate(item.tgl_pemakaian)}
                         </Text>
@@ -520,8 +574,8 @@ const DetailHistory = ({ route}) => {
                           justifyContent: 'space-between',
                           marginTop: 16,
                         }}>
-                        <Text style={{fontSize: 16}}>Price</Text>
-                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 16, color: "#000"}}>Price</Text>
+                        <Text style={{fontSize: 16, fontWeight: 'bold', color: "#000"}}>
                           {formatCurrency(item.subtotal)}
                         </Text>
                       </View>

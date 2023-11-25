@@ -14,7 +14,7 @@ import img from '../../../assets/img';
 import {useLogin} from '../../../Context/HotelContext';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-const baseUrl = 'http://10.0.2.2:8000';
+const baseUrl = 'http://192.168.100.121/backend_p3l/public'
 
 const ChangePassword = () => {
   const navigation = useNavigation();
@@ -118,7 +118,9 @@ const ChangePassword = () => {
                   paddingStart: 10,
                   borderRadius: 10,
                   backgroundColor: '#F2F4F9',
+                  color: "#000"
                 }}
+                placeholderTextColor={'lightgray'}
                 onChangeText={text => setOldPassword(text)}></TextInput>
             </View>
             <View
@@ -144,7 +146,9 @@ const ChangePassword = () => {
                   paddingStart: 10,
                   borderRadius: 10,
                   backgroundColor: '#F2F4F9',
+                  color: "#000"
                 }}
+                placeholderTextColor={'lightgray'}
                 onChangeText={text => setNewPassword(text)}></TextInput>
             </View>
             <TouchableOpacity
