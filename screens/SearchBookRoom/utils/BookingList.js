@@ -25,15 +25,21 @@ const BookingList = () => {
     const formattedTotalPrice = formatCurrency(totalPrice);
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <View style={styles.container}>
       <View style={{flexDirection:"row", alignItems:"center"}}>
         <View style={styles.cartIcon}>
           <Text style={styles.cartText}>{totalQuantity}</Text>
         </View>
-        <Text style={{color:"#fff", fontWeight:"bold", fontSize:16, marginLeft: 10}}>Total Price: {formattedTotalPrice}</Text>
       </View>
-    <Text style={styles.totalText}>Book Now</Text>
-  </TouchableOpacity>
+      <View style={{marginRight:80}}>
+        <Text style={{color:"#fff", fontWeight:"bold", fontSize:12}}>Total Price:</Text>
+        <Text style={{color:"#fff", fontWeight:"bold", fontSize:16}}>{formattedTotalPrice}</Text>
+      </View>
+      <TouchableOpacity>
+    <Text style={styles.totalText}>Book now</Text>
+    </TouchableOpacity>
+  </View>
+
   );
 };
 
@@ -65,9 +71,13 @@ const styles = StyleSheet.create({
       },
       totalText: {
         marginLeft:10,
-        color: '#fff',
+        color: '#1E2131',
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 16,
+        backgroundColor:'#fff',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        borderRadius: 10
       },
 });
 

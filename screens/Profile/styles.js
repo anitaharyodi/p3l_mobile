@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   changePasswordButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center'
   },

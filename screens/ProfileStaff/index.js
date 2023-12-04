@@ -14,7 +14,7 @@ import {useLogin} from '../../Context/HotelContext';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const ProfileStaff = () => {
   const navigation = useNavigation();

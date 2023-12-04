@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useLogin } from '../../../Context/HotelContext';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const CardHistory = ({
   id,

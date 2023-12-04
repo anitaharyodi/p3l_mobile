@@ -15,7 +15,7 @@ import axios from 'axios';
 import {useLogin} from '../../Context/HotelContext';
 import img from '../../assets/img';
 import styles from './styles';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const MyBooking = ({ route }) => {
   const navigation = useNavigation();

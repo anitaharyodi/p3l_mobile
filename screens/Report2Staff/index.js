@@ -6,7 +6,7 @@ import { useLogin } from '../../Context/HotelContext';
 import axios from 'axios';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import RNPrint from 'react-native-print';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const Report2Staff = () => {
   const {tokenPegawai} = useLogin();
@@ -37,11 +37,11 @@ const Report2Staff = () => {
 
   const convertToPDF = async () => {
     try {
-      // Create an HTML string with your React Native view content
       const htmlContent = `
         <html>
           <body>
             <h1>5 Customers With The Most Reservations</h1>
+            <p>Year: 2023</p>
             <table border="1" style="width:100%">
               <tr>
                 <th>NO</th>
@@ -92,8 +92,9 @@ const Report2Staff = () => {
         <View style={{paddingTop:30, paddingHorizontal:16}}>
           <Text style={{fontSize:20, color:"#1E2131", fontWeight:"bold" ,textAlign:'center'}}>5 Customers With The Most Reservations</Text>
         </View>
+        <Text style={{color:'#000', paddingHorizontal: 16, marginTop:20, fontWeight:"bold"}}>Year : 2023</Text>
         <View>
-          <View style={{margin:15, paddingTop:16}}>
+          <View style={{margin:15, paddingTop:10}}>
               <View style={styles.table_head}>
                   <View style={{width:'10%'}}>
                     <Text style={styles.table_caption}>NO</Text>

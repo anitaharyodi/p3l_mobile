@@ -12,7 +12,7 @@ import CardRoom from '../Home/utils/CardRoom';
 import axios from 'axios';
 import styles from './styles';
 import img from '../../assets/img';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const Rooms = () => {
   const [jenisKamarData, setJenisKamarData] = useState([]);

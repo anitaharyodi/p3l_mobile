@@ -31,16 +31,16 @@ const Routes = () => {
       const token = await AsyncStorage.getItem('token');
       setShowSplash(false);
 
-      if (token) {
-        setIsLogin(true);
-      }
+      // if (token) {
+      //   setIsLogin(true);
+      // }
     }
 
     setTimeout(() => {
       checkToken();
       setIsLogin(false);
     }, 3000);
-  }, [setIsLogin, setIsToken]);
+  }, []);
 
   return (
     <Stack.Navigator

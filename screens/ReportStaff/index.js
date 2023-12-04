@@ -6,7 +6,7 @@ import {useLogin} from '../../Context/HotelContext';
 import axios from 'axios';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import RNPrint from 'react-native-print';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public';
+const baseUrl = 'https://ah-project.my.id';
 
 const ReportStaff = () => {
   const {tokenPegawai} = useLogin();
@@ -40,6 +40,7 @@ const ReportStaff = () => {
         <html>
           <body>
             <h1>New Customer Reports per Month</h1>
+            <p>Year: 2023</p>
             <table border="1" style="width:100%">
               <tr>
                 <th>NO</th>
@@ -101,8 +102,9 @@ const ReportStaff = () => {
             New Customer Reports per Month
           </Text>
         </View>
+        <Text style={{color:'#000', paddingHorizontal: 16, marginTop:24, fontWeight:"bold"}}>Year : 2023</Text>
         <View>
-          <View style={{margin: 15, paddingTop: 16}}>
+          <View style={{margin: 15, paddingTop: 6}}>
             <View style={styles.table_head}>
               <View style={{width: '20%'}}>
                 <Text style={styles.table_caption}>NO</Text>

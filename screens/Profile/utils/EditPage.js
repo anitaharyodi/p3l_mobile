@@ -15,7 +15,7 @@ import {TextInput} from 'react-native-gesture-handler';
 import axios from 'axios';
 import {useLogin} from '../../../Context/HotelContext';
 import {useNavigation} from '@react-navigation/native';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const EditPage = ({navigation, route}) => {
   const navigations = useNavigation();

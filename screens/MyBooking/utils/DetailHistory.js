@@ -6,7 +6,7 @@ import {HEIGHT, WIDTH} from '../../../assets/style';
 import {useLogin} from '../../../Context/HotelContext';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-const baseUrl = 'http://192.168.100.121/backend_p3l/public'
+const baseUrl = 'https://ah-project.my.id'
 
 const DetailHistory = ({route}) => {
   const navigation = useNavigation();
